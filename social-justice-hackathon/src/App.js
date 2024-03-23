@@ -6,9 +6,9 @@ function App() {
 
   const mapContainer=useRef(null);
   const[viewState,setViewState]=useState({
-    center:[-100.43,35],
-    zoom:5,
-    pitch:90
+    center:[264,38],
+    zoom:4,
+    pitch:0
   })
   useEffect(()=>{
     const map=new maplibregl.Map({
