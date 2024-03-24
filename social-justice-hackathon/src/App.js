@@ -5,9 +5,6 @@ import airData from './Ait_Pollution_Data.json'
 import Map from "./components/Map"
 function App() {
 
-if(!isLoaded){
-  return <div>Loading...</div>
-}
   return (
     <Map/>
   );
