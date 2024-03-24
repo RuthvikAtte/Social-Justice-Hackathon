@@ -11,6 +11,7 @@ function Map(){
     pitch:0
   })
   useEffect(()=>{
+    console.log(airData)
     const map=new maplibregl.Map({
       container:mapContainer.current,
       style:'https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
@@ -19,7 +20,7 @@ function Map(){
 
     const addDatasets=(map, data,source,thing) =>{
       map.addSource(source,{
-        type:'geojson',
+        type:'json',
         data:data,
       })
 
@@ -35,7 +36,7 @@ function Map(){
                         ['get', thing],
                         0,
                         0,
-                        6,
+                        100,
                         1 // This smooths it so that it's weighted up to 1 if magnitude is 6
                     ],
                     // Increase the heatmap color weight weight by zoom level
@@ -96,12 +97,11 @@ function Map(){
     axios.
     get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson')
     .then(response=>{
-      addDatasets(map,response.data,'earthquakes','mag');
+      addDatasets(map,airData,'earthquakes','PPBValue');
     })
     .catch(error=>{
       console.log(error);
     })
-      addDatasets(map,airData,'air','PPBValue')
     return ()=>{
       map.remove();
     };
