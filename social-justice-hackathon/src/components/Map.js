@@ -11,7 +11,6 @@ function Map(){
     pitch:0
   })
   useEffect(()=>{
-    console.log(airData)
     const map=new maplibregl.Map({
       container:mapContainer.current,
       style:'https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
