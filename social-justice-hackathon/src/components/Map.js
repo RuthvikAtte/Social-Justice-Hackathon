@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import tempData from '../data'
+import airData from '../Ait_Pollution_Data.json'
 import axios from 'axios';
 function Map(){
   const mapContainer=useRef(null);
@@ -101,12 +101,12 @@ function Map(){
     .catch(error=>{
       console.log(error);
     })
-      // addDatasets(map,tempData,'value')
+      addDatasets(map,airData,'air','PPBValue')
     return ()=>{
       map.remove();
     };
   },[]);
-
+      
   return (
     <>
       <div ref={mapContainer} style={{width:'100%',height:'90%',marginTop:'20px',position:'absolute'}}/>
