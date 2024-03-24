@@ -3,7 +3,7 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import airData from '../Ait_Pollution_Data.json'
 import axios from 'axios';
-function Map(){
+function Map(props){
   const mapContainer=useRef(null);
   const[viewState,setViewState]=useState({
     center:[264,38],
@@ -19,7 +19,7 @@ function Map(){
 
     const addDatasets=(map, data,source,thing) =>{
       map.addSource(source,{
-        type:'json',
+        type:'geojson',
         data:data,
       })
 
@@ -58,17 +58,17 @@ function Map(){
                         ['linear'],
                         ['heatmap-density'],
                         0,
-                        'rgba(33,102,172,0)',
+                        `rgba(${props.color},102,172,0)`,
                         0.2,
-                        'rgb(103,169,207)',
+                        `rgb(${props.color},169,207)`,
                         0.4,
-                        'rgb(209,229,240)',
+                        `rgb(${props.color},229,240)`,
                         0.6,
-                        'rgb(253,219,199)',
+                        `rgb(${props.color},219,199)`,
                         0.8,
-                        'rgb(239,138,98)',
+                        `rgb(${props.color},138,98)`,
                         1,
-                        'rgb(178,24,43)'
+                        `rgb(${props.color},24,43)`
                     ],
                     // Adjust the heatmap radius by zoom level
                     'heatmap-radius': [
@@ -96,7 +96,7 @@ function Map(){
     axios.
     get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson')
     .then(response=>{
-      addDatasets(map,airData,'earthquakes','PPBValue');
+      addDatasets(map,response.data,'earthquakes','mag');
     })
     .catch(error=>{
       console.log(error);
@@ -104,7 +104,7 @@ function Map(){
     return ()=>{
       map.remove();
     };
-  },[]);
+  },[props]);
       
   return (
     <>
