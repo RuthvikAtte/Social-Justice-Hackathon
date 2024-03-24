@@ -1,6 +1,6 @@
 import './home.css';
 import React from 'react';
-
+import Map from './Map'
 // import Map from '../components/Map.js';
 export default function Home() {
     const [data, setData] = React.useState(null);
@@ -22,13 +22,14 @@ export default function Home() {
                     <button class="btn" onclick="">Air Pollution</button>
                     <button class="btn" onclick="">Crime Rate</button>
                 </div>
-                <div className="flex-child bordering">
-                    <p>{!data ? "Loading..." : data}</p>
+                <div className="flex-child bordering mapHolder">
+                    <Map/>
                 </div>
             </div>
             <div className="slidecontainer">
                 <input type="range" min="1" max="100" value="50" className="slider" id="myRange" />
             </div>
+            
         </div>
     )
 }

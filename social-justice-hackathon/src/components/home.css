@@ -29,8 +29,6 @@ h1 {
 }
 .bordering {
     border: 2px solid black;
-    max-width: 800px;
-    max-height: 500px;
     border-color: white;
     display: flex;
     justify-content: center;
@@ -66,4 +64,8 @@ p {
 .slider:hover {
     opacity: 1;
     cursor: pointer;
+}
+.mapHolder{
+    width:100%;
+    height:100%;
 }

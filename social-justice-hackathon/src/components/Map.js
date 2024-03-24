@@ -108,7 +108,7 @@ function Map(props){
       
   return (
     <>
-      <div ref={mapContainer} style={{width:'100%',height:'90%',marginTop:'20px',position:'absolute'}}/>
+      <div ref={mapContainer} style={{width:'100%',height:'90%',marginTop:'20px'}}/>
     </>
   );
 }
