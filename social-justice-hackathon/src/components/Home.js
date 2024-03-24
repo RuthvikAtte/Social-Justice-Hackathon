@@ -1,6 +1,15 @@
-import '../components/home.css';
-import Map from '../components/Map.js';
+import './home.css';
+import React from 'react';
+
+// import Map from '../components/Map.js';
 export default function Home() {
+    const [data, setData] = React.useState(null);
+
+    React.useEffect(() => {
+        fetch("/api")
+        .then((res) => res.json())
+        .then((data) => setData(data.message));
+    }, []);
     return (
         <div className="bg">
             <h1>U.S. Heat Map</h1>
@@ -12,7 +21,7 @@ export default function Home() {
                     <button class="btn" onclick="">Crime Rate</button>
                 </div>
                 <div className="flex-child bordering">
-                    <Map />
+                    <p>{!data ? "Loading..." : data}</p>
                 </div>
             </div>
             <div className="slidecontainer">
