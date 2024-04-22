@@ -2,29 +2,69 @@
 import json
 import pandas as pd
 import requests
+import os
 
-# Set your API parameters here.
-API_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MDRlemcyZHpvdmZuZGJ6djdmNjhwdXNld3pmMWMyYiIsImlzcyI6ImRhdGFmaW5pdGkuY28ifQ.SEk-FqJShMHgqZflL7vydj1pPQvuGYgQfS7f8bs16LQS6ypl2r31PncPadnJ0m0eVKJDYPyOHn09xUd7L_CrAgevYQCWTy82ZJzTiG61h0o4ThExB_VIEXIjx-JN2dWN6GQtJ662z6-cWSZ6EOSGHzG6WgiQc6PPaAdtZjNFZr61ox_IB6QYgvW49Pi52J2RIV7aY3wdydUc9lhM0QzK9HotiDrJ8EyYQ1UHdDrLRe1gK_crMjIwo680lfcp7PCnLci9wdbVLB4eOOwYVb6O_siQmtv3GH4TrbqwfXhMWasq0LXuOz54-nUXBPFy4ik7hF4RRdrrwdyhyrjonU9SAcHkDvjxwiW6TkmCUZXG8fhtTuP0gqGWfQuGP0J-3eWBjlC-qm_4ob9ds2YW6kxs-LTa3_-Y5Nj_EIkrN5JjBWY6_FIZz6ZrZsThRVaHS9xgsuyCsPpQ1hIJooDmydZ9ElvM4LTDyvJxddqJFTw4dMbIQldhMajYwzf2xg8IYoaDTEGkMUxmBhNZTq1C0T8sgxxQ83xq_wV-9vbabvkOjY-snWIgV7O3sobTa5sWTuwDA8e4Vf1JcL5F6Oh7i_1Pn_xBkcKKwa_HUjLWmsZF6X6e6jE4snEgMVM6vXvrjcoU2Y1gMv1X3SpbDpPMyRFzsI5reFhkhVLinq_aZ6JnJa4"
-format = "JSON"
-download = True
 
-request_headers = {
-    "Authorization": "Bearer " + API_token,
-    "Content-Type": "application/json",
-}
-request_data = {
-    "query": query,
-    "format": format,
-    "num_records": num_records,
-    "download": download,
-}
+class API:
 
-# Make the API call.
-r = requests.post(
-    "https://api.datafiniti.co/v4/properties/search",
-    json=request_data,
-    headers=request_headers,
-)
+    def __init__(self):
+        pass
+
+    def request_FIPS():
+        response = requests.get(
+            "https://aqs.epa.gov/data/api/list/states?email=test@aqs.api&key=test"
+        )
+        if response.status_code == 200:
+            # Request was successful
+            data1 = response.json()
+            # Parse and use the data as needed
+        else:
+            # Request failed
+            print(f"Request failed with status code: {response.status_code}")
+
+        data1 = response.json()
+        with open("Country_FIPS.json", "w") as f:
+            json.dump(data1, f, ensure_ascii=False, indent=4)
+
+    # Getting all of the FIBS Numbers from the Country_FIPS
+    def FIPS():
+        f = open("Country_FIPS.JSON", "r")
+        parsedR = json.loads(f.read())
+        FIPS_List = []
+        df = pd.json_normalize(parsedR)
+        new_df = df["Data"].values
+        for x in new_df.item(0):
+            FIPS_List.append(x["code"])
+        FIPS_List.pop()
+        return FIPS_List
+
+    def get_data_FIBS(file_name, num_FIP, Year):
+
+        response = requests.get(
+            "https://aqs.epa.gov/data/api/annualData/byState?email=test@aqs.api&key=test&param=45201&bdate=19950515&edate=19950515&state="
+            + str(num_FIP)
+        )
+        if response.status_code == 200:
+            # Request was successful
+            data = response.json()
+            # Parse and use the data as needed
+        else:
+            # Request failed
+            print(f"Request failed with status code: {response.status_code}")
+
+        data = response.json()
+        # print(data)
+        filename = file_name + ".json"
+        with open(filename, "w") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    def delete_json(filepath):
+        if os.path.exists(filepath):
+            os.remove(filepath)
+
+
+api = API()
+
 
 # Do something with the response.
 # if r.status_code == 200:
