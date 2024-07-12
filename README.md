@@ -1,38 +1,5 @@
 # Social-Justice-Hackathon
-# api key = qYzSBBEPTC9ySRtQvh5zIIh5udSoWDDCySHbNcbCnoRSADehUTGLBlkMkAJBM32M
-# FOR THE OUTPUTS WE OUTPUT1: 2022, OUTPUT2: 2021, OUTPUT3: 2020 AND HERE ARE THE RESPECTIVE MIN AND MAX VALUES
-MIN VALUES
-Date    2021-01-01
-lat        17.9743
-lng      -159.3521
-AQI              0
-dtype: object
-MAX VALUES
-Date    2021-12-31
-lat        64.8353
-lng        -66.061
-AQI            666
-dtype: object
-MIN VALUES
-Date    2020-01-01
-lat        17.9743
-lng      -159.3521
-AQI              0
-dtype: object
-MAX VALUES
-Date    2020-12-31
-lat        64.8353
-lng        -66.061
-AQI           1250
-dtype: object
-MIN VALUES
-Date    2019-01-01
-lat        17.9743
-lng      -159.3521
-AQI              0
-dtype: object
-MAX VALUES
-Date    2019-12-31
-lat        64.8353
-lng        -66.061
-AQI            886
+
+Won first place in HackRU for creating an application that takes data and creates a heat map of all of the columns containing data on air pollution, poverty ect. You could overlay the data and find any correlations with the data points. 
+
+We are also currently adding the prediction component in order to give a prediction for the next year.
